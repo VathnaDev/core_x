@@ -12,9 +12,7 @@ class _JsonPlaceholderService implements JsonPlaceholderService {
   _JsonPlaceholderService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://jsonplaceholder.typicode.com/';
-  }
+  });
 
   final Dio _dio;
 

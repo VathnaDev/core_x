@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,12 +13,11 @@ part 'todo_list_state.dart';
 part 'todo_list_cubit.g.dart';
 part 'todo_list_cubit.freezed.dart';
 
-
 class TodoListCubit extends HydratedCubit<TodoListState> {
-  late JsonPlaceholderService _jsonPlaceholderService;
-  TodoListCubit() : super(const TodoListState()) {
-    final dio = DioUtils.getClient(url: "https://jsonplaceholder.typicode.com/");
-    _jsonPlaceholderService = JsonPlaceholderService(dio);
+  final JsonPlaceholderService jsonPlaceholderService;
+  TodoListCubit({
+    required this.jsonPlaceholderService,
+  }) : super(const TodoListState()) {
     if (fromJson(cached)?.todos == null) {
       loadData();
     }
@@ -25,17 +26,25 @@ class TodoListCubit extends HydratedCubit<TodoListState> {
   void loadData() async {
     emit(state.copyWith(isLoading: true));
     try {
-      final todos = await _jsonPlaceholderService.getTodos();
+      final todos = await jsonPlaceholderService.getTodos();
       emit(state.copyWith(isLoading: false, todos: todos));
-    } catch (ex) {}
+    } on Exception catch (ex) {
+      emit(state.copyWith(isLoading: false, errorMessage: ex.toString()));
+    }
   }
 
   void loadMore() async {
     emit(state.copyWith(isLoading: true));
     try {
-      final todos = await _jsonPlaceholderService.getTodos();
+      final todos = await jsonPlaceholderService.getTodos();
       emit(state.copyWith(isLoading: false, todos: [...(state.todos ?? []) + todos]));
-    } catch (ex) {}
+    } catch (ex) {
+      emit(state.copyWith(isLoading: false, errorMessage: ex.toString()));
+    }
+  }
+
+  void clearError() {
+    emit(state.copyWith(errorMessage: null));
   }
 
   @override

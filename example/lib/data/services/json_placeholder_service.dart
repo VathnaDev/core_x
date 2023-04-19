@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 
 part 'json_placeholder_service.g.dart';
 
-@RestApi(baseUrl: "https://jsonplaceholder.typicode.com/")
+@RestApi(baseUrl: "")
 abstract class JsonPlaceholderService {
   factory JsonPlaceholderService(Dio dio, {String baseUrl}) = _JsonPlaceholderService;
 

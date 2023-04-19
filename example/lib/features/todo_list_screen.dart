@@ -14,7 +14,9 @@ class TodoListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TodoListCubit>(
-      create: (context) => TodoListCubit(),
+      create: (context) => TodoListCubit(
+        jsonPlaceholderService: context.read(),
+      ),
       child: Scaffold(
         appBar: AppBar(
           actions: [
@@ -36,8 +38,19 @@ class TodoListScreen extends StatelessWidget {
             onRefresh: () async {
               context.read<TodoListCubit>().loadData();
             },
-            child: BlocBuilder<TodoListCubit, TodoListState>(
-              bloc: context.read(),
+            child: BlocConsumer<TodoListCubit, TodoListState>(
+              listener: (context, state) async {
+                if (state.errorMessage != null) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Error"),
+                      content: Text(state.errorMessage!),
+                    ),
+                  );
+                  context.read<TodoListCubit>().clearError();
+                }
+              },
               builder: (context, state) {
                 if (state.isLoading && state.todos == null) {
                   return const Center(child: CircularProgressIndicator());

@@ -21,6 +21,7 @@ TodoListState _$TodoListStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TodoListState {
   bool get isLoading => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
   List<Todo>? get todos => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +36,7 @@ abstract class $TodoListStateCopyWith<$Res> {
           TodoListState value, $Res Function(TodoListState) then) =
       _$TodoListStateCopyWithImpl<$Res, TodoListState>;
   @useResult
-  $Res call({bool isLoading, List<Todo>? todos});
+  $Res call({bool isLoading, String? errorMessage, List<Todo>? todos});
 }
 
 /// @nodoc
@@ -52,6 +53,7 @@ class _$TodoListStateCopyWithImpl<$Res, $Val extends TodoListState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? errorMessage = freezed,
     Object? todos = freezed,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +61,10 @@ class _$TodoListStateCopyWithImpl<$Res, $Val extends TodoListState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       todos: freezed == todos
           ? _value.todos
           : todos // ignore: cast_nullable_to_non_nullable
@@ -75,7 +81,7 @@ abstract class _$$_TodoListStateCopyWith<$Res>
       __$$_TodoListStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, List<Todo>? todos});
+  $Res call({bool isLoading, String? errorMessage, List<Todo>? todos});
 }
 
 /// @nodoc
@@ -90,6 +96,7 @@ class __$$_TodoListStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? errorMessage = freezed,
     Object? todos = freezed,
   }) {
     return _then(_$_TodoListState(
@@ -97,6 +104,10 @@ class __$$_TodoListStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       todos: freezed == todos
           ? _value._todos
           : todos // ignore: cast_nullable_to_non_nullable
@@ -109,7 +120,8 @@ class __$$_TodoListStateCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$_TodoListState implements _TodoListState {
-  const _$_TodoListState({this.isLoading = false, final List<Todo>? todos})
+  const _$_TodoListState(
+      {this.isLoading = false, this.errorMessage, final List<Todo>? todos})
       : _todos = todos;
 
   factory _$_TodoListState.fromJson(Map<String, dynamic> json) =>
@@ -118,6 +130,8 @@ class _$_TodoListState implements _TodoListState {
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  final String? errorMessage;
   final List<Todo>? _todos;
   @override
   List<Todo>? get todos {
@@ -130,7 +144,7 @@ class _$_TodoListState implements _TodoListState {
 
   @override
   String toString() {
-    return 'TodoListState(isLoading: $isLoading, todos: $todos)';
+    return 'TodoListState(isLoading: $isLoading, errorMessage: $errorMessage, todos: $todos)';
   }
 
   @override
@@ -140,13 +154,15 @@ class _$_TodoListState implements _TodoListState {
             other is _$_TodoListState &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(other._todos, _todos));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, isLoading, const DeepCollectionEquality().hash(_todos));
+  int get hashCode => Object.hash(runtimeType, isLoading, errorMessage,
+      const DeepCollectionEquality().hash(_todos));
 
   @JsonKey(ignore: true)
   @override
@@ -164,13 +180,17 @@ class _$_TodoListState implements _TodoListState {
 
 abstract class _TodoListState implements TodoListState {
   const factory _TodoListState(
-      {final bool isLoading, final List<Todo>? todos}) = _$_TodoListState;
+      {final bool isLoading,
+      final String? errorMessage,
+      final List<Todo>? todos}) = _$_TodoListState;
 
   factory _TodoListState.fromJson(Map<String, dynamic> json) =
       _$_TodoListState.fromJson;
 
   @override
   bool get isLoading;
+  @override
+  String? get errorMessage;
   @override
   List<Todo>? get todos;
   @override

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:core_x/utils/networks/dio_utils.dart';
+import 'package:example/data/services/json_placeholder_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -30,6 +32,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthenticationBloc(),
         ),
+        RepositoryProvider(
+          create: (_) => DioUtils.getClient(url: "https://jsonplaceholder.typicode.com/"),
+        ),
+        RepositoryProvider(
+          create: (context) => JsonPlaceholderService(context.read()),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

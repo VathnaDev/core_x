@@ -5,6 +5,7 @@ class TodoListState with _$TodoListState {
   @JsonSerializable()
   const factory TodoListState({
     @Default(false) bool isLoading,
+    String? errorMessage,
     List<Todo>? todos,
   }) = _TodoListState;
 
