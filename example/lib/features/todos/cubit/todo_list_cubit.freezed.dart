@@ -14,43 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+TodoListState _$TodoListStateFromJson(Map<String, dynamic> json) {
+  return _TodoListState.fromJson(json);
+}
+
 /// @nodoc
 mixin _$TodoListState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<Todo>? get todos => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool isLoading, List<Todo>? todos) initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLoading, List<Todo>? todos)? initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLoading, List<Todo>? todos)? initial,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TodoListStateCopyWith<TodoListState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -95,21 +68,22 @@ class _$TodoListStateCopyWithImpl<$Res, $Val extends TodoListState>
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res>
+abstract class _$$_TodoListStateCopyWith<$Res>
     implements $TodoListStateCopyWith<$Res> {
-  factory _$$_InitialCopyWith(
-          _$_Initial value, $Res Function(_$_Initial) then) =
-      __$$_InitialCopyWithImpl<$Res>;
+  factory _$$_TodoListStateCopyWith(
+          _$_TodoListState value, $Res Function(_$_TodoListState) then) =
+      __$$_TodoListStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isLoading, List<Todo>? todos});
 }
 
 /// @nodoc
-class __$$_InitialCopyWithImpl<$Res>
-    extends _$TodoListStateCopyWithImpl<$Res, _$_Initial>
-    implements _$$_InitialCopyWith<$Res> {
-  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
+class __$$_TodoListStateCopyWithImpl<$Res>
+    extends _$TodoListStateCopyWithImpl<$Res, _$_TodoListState>
+    implements _$$_TodoListStateCopyWith<$Res> {
+  __$$_TodoListStateCopyWithImpl(
+      _$_TodoListState _value, $Res Function(_$_TodoListState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -118,7 +92,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? todos = freezed,
   }) {
-    return _then(_$_Initial(
+    return _then(_$_TodoListState(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -133,9 +107,13 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial({this.isLoading = false, final List<Todo>? todos})
+@JsonSerializable()
+class _$_TodoListState implements _TodoListState {
+  const _$_TodoListState({this.isLoading = false, final List<Todo>? todos})
       : _todos = todos;
+
+  factory _$_TodoListState.fromJson(Map<String, dynamic> json) =>
+      _$$_TodoListStateFromJson(json);
 
   @override
   @JsonKey()
@@ -152,19 +130,20 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'TodoListState.initial(isLoading: $isLoading, todos: $todos)';
+    return 'TodoListState(isLoading: $isLoading, todos: $todos)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Initial &&
+            other is _$_TodoListState &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._todos, _todos));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, isLoading, const DeepCollectionEquality().hash(_todos));
@@ -172,69 +151,23 @@ class _$_Initial implements _Initial {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
-      __$$_InitialCopyWithImpl<_$_Initial>(this, _$identity);
+  _$$_TodoListStateCopyWith<_$_TodoListState> get copyWith =>
+      __$$_TodoListStateCopyWithImpl<_$_TodoListState>(this, _$identity);
 
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(bool isLoading, List<Todo>? todos) initial,
-  }) {
-    return initial(isLoading, todos);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(bool isLoading, List<Todo>? todos)? initial,
-  }) {
-    return initial?.call(isLoading, todos);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool isLoading, List<Todo>? todos)? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(isLoading, todos);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
+  Map<String, dynamic> toJson() {
+    return _$$_TodoListStateToJson(
+      this,
+    );
   }
 }
 
-abstract class _Initial implements TodoListState {
-  const factory _Initial({final bool isLoading, final List<Todo>? todos}) =
-      _$_Initial;
+abstract class _TodoListState implements TodoListState {
+  const factory _TodoListState(
+      {final bool isLoading, final List<Todo>? todos}) = _$_TodoListState;
+
+  factory _TodoListState.fromJson(Map<String, dynamic> json) =
+      _$_TodoListState.fromJson;
 
   @override
   bool get isLoading;
@@ -242,6 +175,6 @@ abstract class _Initial implements TodoListState {
   List<Todo>? get todos;
   @override
   @JsonKey(ignore: true)
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+  _$$_TodoListStateCopyWith<_$_TodoListState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -27,45 +27,43 @@ class TodoListScreen extends StatelessWidget {
               },
             ),
           ],
-          // title: BlocBuilder<TodoListCubit, TodoListState>(
-          //   bloc: context.read(),
-          //   builder: (context, state) {
-          //     if (state.isLoading) {
-          //       return const Text("Fetching Data");
-          //     } else {
-          //       return Text("Todos ${state.todos?.length}");
-          //     }
-          //   },
-          // ),
           title: Builder(builder: (context) {
-            return Text("Todos ${context.select((TodoListCubit value) => value.state.todos?.length)}");
+            return Text("Todos ${context.select((TodoListCubit value) => value.state.todos?.length) ?? 0}");
           }),
         ),
-        body: BlocBuilder<TodoListCubit, TodoListState>(
-          bloc: context.read(),
-          builder: (context, state) {
-            if (state.isLoading && state.todos == null) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return ListView.builder(
-                padding: 16.paddingAllEdge,
-                itemCount: state.todos?.length,
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    onTap: () {},
-                    title: Text(state.todos![index].title),
-                  ),
-                ),
-              );
-            }
-          },
-        ),
+        body: Builder(builder: (context) {
+          return RefreshIndicator(
+            onRefresh: () async {
+              context.read<TodoListCubit>().loadData();
+            },
+            child: BlocBuilder<TodoListCubit, TodoListState>(
+              bloc: context.read(),
+              builder: (context, state) {
+                if (state.isLoading && state.todos == null) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  if (state.todos == null) return Container();
+                  return ListView.builder(
+                    padding: 16.paddingAllEdge,
+                    itemCount: state.todos?.length,
+                    itemBuilder: (context, index) => Card(
+                      child: ListTile(
+                        onTap: () {},
+                        title: Text(state.todos![index].title),
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          );
+        }),
         floatingActionButton: Builder(builder: (context) {
           return FloatingActionButton(
             onPressed: () {
-              context.read<TodoListCubit>().refresh();
+              context.read<TodoListCubit>().loadMore();
             },
-            child: Icon(Icons.refresh),
+            child: Icon(Icons.data_array),
           );
         }),
       ),

@@ -2,8 +2,11 @@ part of 'todo_list_cubit.dart';
 
 @freezed
 class TodoListState with _$TodoListState {
-  const factory TodoListState.initial({
+  @JsonSerializable()
+  const factory TodoListState({
     @Default(false) bool isLoading,
     List<Todo>? todos,
-  }) = _Initial;
+  }) = _TodoListState;
+
+  factory TodoListState.fromJson(Map<String, dynamic> json) => _$TodoListStateFromJson(json);
 }
