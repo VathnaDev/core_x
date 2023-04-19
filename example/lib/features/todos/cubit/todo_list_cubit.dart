@@ -18,7 +18,7 @@ class TodoListCubit extends HydratedCubit<TodoListState> {
   TodoListCubit({
     required this.jsonPlaceholderService,
   }) : super(const TodoListState()) {
-    if (fromJson(cached)?.todos == null) {
+    if (cached == null || fromJson(cached!)?.todos == null) {
       loadData();
     }
   }
@@ -57,7 +57,7 @@ class TodoListCubit extends HydratedCubit<TodoListState> {
 }
 
 extension HydrateBlocStorageExt on HydratedMixin {
-  Map<String, dynamic> get cached {
+  Map<String, dynamic>? get cached {
     return HydratedBloc.storage.read(storageToken);
   }
 }

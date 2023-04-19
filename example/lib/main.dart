@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:core_x/utils/networks/dio_utils.dart';
+import 'package:core_x/app_bloc_observer.dart';
 import 'package:example/data/services/json_placeholder_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ import 'features/auth/bloc/authentication_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = AppBlocObserver();
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
