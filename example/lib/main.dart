@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'example_screen.dart';
+import 'features/auth/bloc/authentication_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,13 +18,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint(Platform.environment.toString());
-    return MaterialApp(
-      title: 'Flutter Demo',
-      themeMode: ThemeMode.dark,
-      showSemanticsDebugger: false,
-      debugShowCheckedModeBanner: false,
-      theme: _buildTheme(Brightness.dark),
-      home: const ExampleScreen(),
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthenticationBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        themeMode: ThemeMode.dark,
+        showSemanticsDebugger: false,
+        debugShowCheckedModeBanner: false,
+        theme: _buildTheme(Brightness.dark),
+        home: BlocListener<AuthenticationBloc, AuthenticationState>(
+          listener: (context, state) {
+            print(state);
+            state.whenOrNull(unAuthenticated: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            });
+          },
+          child: ExampleScreen(),
+        ),
+      ),
     );
   }
 
